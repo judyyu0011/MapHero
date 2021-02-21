@@ -70,6 +70,39 @@ window.initMap = function () {
     idPropertyName: "primaryind",
   });
 
+  // load facility markers based on filters
+
+  var fountainSelect = document.getElementById("fountain");
+  fountainSelect.onchange = function () {
+    console.log("hi0");
+    if (fountainSelect.checked) {
+      map.data.loadGeoJson("resources/drinking-fountains.json", {
+        idPropertyName: "mapid",
+      });
+    } else if (!fountainSelect.checked) {
+      map.data.forEach(function (feature) {
+        if (feature.getProperty("mapid") !== undefined) {
+          map.data.remove(feature);
+        }
+      });
+    }
+  };
+
+  var washroomSelect = document.getElementById("washroom");
+  washroomSelect.onchange = function () {
+    if (washroomSelect.checked) {
+      map.data.loadGeoJson("resources/washrooms.json", {
+        idPropertyName: "primaryind",
+      });
+    } else if (!washroomSelect.checked) {
+      map.data.forEach(function (feature) {
+        if (feature.getProperty("primaryind") !== undefined) {
+          map.data.remove(feature);
+        }
+      });
+    }
+  };
+
   // set pin style for different facility
   map.data.setStyle((feature) => {
     if (feature.getProperty("mapid") !== undefined)
@@ -88,7 +121,7 @@ window.initMap = function () {
       };
   });
 
-  // add infowindow for water fountains
+  // add infowindows
   const spotInfoWindow = new google.maps.InfoWindow();
 
   // display info window on click
@@ -160,7 +193,7 @@ window.initMap = function () {
   const geocoder = new google.maps.Geocoder();
 
   document.getElementById("search").addEventListener("click", () => {
-    if (document.getElementById("address").value == null) {
+    if (!document.getElementById("address").value) {
       alert("Please enter a valid address or postal code");
     } else {
       geocodeAddress(geocoder, map);
@@ -183,9 +216,108 @@ window.initMap = function () {
     });
   }
 
-}
 
+  //Facilities Closeby
+  async function calculateDistances(data, center) {
+    const waterFountains = [];
+    const destinations = [];
 
+    // Build parallel arrays for the store IDs and destinations
+    map.data.forEach((thisFountain) => {
+      const foutainNum = thisFountain.getProperty("mapid");
+      const foutainLoc = thisFountain.getGeometry().get();
+
+      waterFountains.push(fountainNum);
+      destinations.push(fountainLoc);
+    });
+
+    // Retrieve the distances of each fountain from the origin
+    // The returned list will be in the same order as the destinations list
+    const service = new google.maps.DistanceMatrixService();
+    const getDistanceMatrix = (service, parameters) =>
+      new Promise((resolve, reject) => {
+        service.getDistanceMatrix(parameters, (response, status) => {
+          if (status != google.maps.DistanceMatrixStatus.OK) {
+            reject(response);
+          } else {
+            const distances = [];
+            const results = response.rows[0].elements;
+            for (let j = 0; j < results.length; j++) {
+              const element = results[j];
+              const distanceText = element.distance.text;
+              const distanceVal = element.distance.value;
+              const distanceObject = {
+                fountainid: waterFountains[j],
+                distanceText: distanceText,
+                distanceVal: distanceVal,
+              };
+              distances.push(distanceObject);
+            }
+
+            resolve(distances);
+          }
+        });
+      });
+
+    const distancesList = await getDistanceMatrix(service, {
+      center: [center],
+      destinations: destinations,
+      travelMode: "DRIVING",
+      unitSystem: google.maps.UnitSystem.METRIC,
+    });
+
+    distancesList.sort((first, second) => {
+      return first.distanceVal - second.distanceVal;
+    });
+
+    return distancesList;
+  }
+
+  //Show the Fountains
+  function showStoresList(data, waterFountains) {
+    if (waterFountains.length == 0) {
+      console.log("empty stores");
+      return;
+    }
+
+    let panel = document.createElement("div");
+    // If the panel already exists, use it. Else, create it and add to the page.
+    if (document.getElementById("panel")) {
+      panel = document.getElementById("panel");
+      // If panel is already open, close it
+      if (panel.classList.contains("open")) {
+        panel.classList.remove("open");
+      }
+    } else {
+      panel.setAttribute("id", "panel");
+      const body = document.body;
+      body.insertBefore(panel, body.childNodes[0]);
+    }
+
+    // Clear the previous details
+    while (panel.lastChild) {
+      panel.removeChild(panel.lastChild);
+    }
+
+    waterFountains.forEach((thisFountain) => {
+      // Add store details with text formatting
+      const name = document.createElement("p");
+      name.classList.add("place");
+      const currentFountain = data.getFeatureById(thisFountain.fountainid);
+      name.textContent = currentFountain.getProperty("name");
+      panel.appendChild(name);
+      const distanceText = document.createElement("p");
+      distanceText.classList.add("distanceText");
+      distanceText.textContent = thisFountain.distanceText;
+      panel.appendChild(distanceText);
+    });
+
+    // Open the panel
+    panel.classList.add("open");
+
+    return;
+  }
+};
 
 // Append the 'script' element to 'head'
 document.head.appendChild(script);

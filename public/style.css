@@ -92,6 +92,7 @@ body {
   height: 50px;
   line-height: 50px;
 }
+
 .loc-button {
   position: absolute;
   left: 370%;
@@ -102,6 +103,28 @@ body {
 .loc-button:hover {
   color: #795a40;
   cursor: pointer;
+}
+
+#select-container {
+  border-radius: 10px;
+  position: absolute;
+  left: 82%;
+  text-align: left;
+  width: 155px;
+  top: 73%;
+  background-color: rgba(21, 19, 19, 0.13);
+;
+}
+
+.inline-field {
+  margin-left: 10px;
+}
+
+.inline-field input,
+.inline-field label {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle; 
 }
 
 
