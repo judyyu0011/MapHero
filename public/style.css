@@ -88,6 +88,9 @@ body {
   color: #fff;
   font-family: roboto;
   border-radius: 10px;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
 }
 .loc-button {
   position: absolute;
@@ -100,6 +103,7 @@ body {
   color: #795a40;
   cursor: pointer;
 }
+
 
 /* MAIN PAGE */
 
