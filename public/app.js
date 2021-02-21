@@ -7,7 +7,7 @@ script.async = true;
 // Attach your callback function to the `window` object
 window.initMap = function () {
   // console.log(getCoordinates().lat);
-  var map, infoWindow;
+  var map, infoWindow, curLocMarker;
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 49.246292, lng: -123.116226 },
     zoom: 13,
@@ -15,7 +15,7 @@ window.initMap = function () {
 
   infoWindow = new google.maps.InfoWindow();
 
-  // get user's current location coordinate, displays info window
+  // get user's current location coordinate, displays marker at curr location
   // uses built in geolocation
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -25,10 +25,23 @@ window.initMap = function () {
           lng: position.coords.longitude,
         };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent("Current location");
-        infoWindow.open(map);
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent("You are here!");
+        // infoWindow.open(map);
+
+        // curLocMarker = new google.maps.Marker({
+        //   map: map,
+        //   position: pos,
+        // });
+        new google.maps.Marker({
+          map: map,
+          position: pos,
+        });
         map.setCenter(pos);
+
+        document.getElementById("loc-button").addEventListener("click", () => {
+          map.setCenter(pos);
+        });
       },
       function () {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -57,6 +70,7 @@ window.initMap = function () {
     idPropertyName: "primaryind",
   });
 
+  // set pin style for different facility
   map.data.setStyle((feature) => {
     if (feature.getProperty("mapid") !== undefined)
       return {
@@ -74,20 +88,20 @@ window.initMap = function () {
       };
   });
 
-
   // add infowindow for water fountains
   const spotInfoWindow = new google.maps.InfoWindow();
 
+  // display info window on click
   map.data.addListener("click", (event) => {
-
-    if (event.feature.getProperty('mapid') !== undefined) {
-
+    // water fountain
+    if (event.feature.getProperty("mapid") !== undefined) {
       var name = event.feature.getProperty("name");
-
+      var pos = name.lastIndexOf(":");
+      name = name.slice(pos + 1);
 
       var location;
       if (event.feature.getProperty("location") !== undefined) {
-        location = "Location: " + event.feature.getProperty("location");
+        location = event.feature.getProperty("location");
       } else {
         location = "";
       }
@@ -102,19 +116,21 @@ window.initMap = function () {
 
       const position = event.feature.getGeometry().get();
       const content = `
-        <h2>${name}</h2><p>${location}</p>
-        <p><b></b> ${inOperation}<br/>
-        `;
+          <h2>${name}</h2><p>${location}</p>
+          <p><b></b> ${inOperation}</p>
+          `;
 
       spotInfoWindow.setContent(content);
       spotInfoWindow.setPosition(position);
       spotInfoWindow.setOptions({ pixelOffset: new google.maps.Size(0, -30) });
       spotInfoWindow.open(map);
+
+      // washroom
     } else if (event.feature.getProperty("primaryind") !== undefined) {
       var name = event.feature.getProperty("name");
       var location;
-      if (event.feature.getProperty("location") !== undefined) {
-        location = "Location: " + event.feature.getProperty("location");
+      if (event.feature.getProperty("address") !== undefined) {
+        location = event.feature.getProperty("address");
       } else {
         location = "";
       }
@@ -122,10 +138,55 @@ window.initMap = function () {
       const wheelAccess = event.feature.getProperty("wheel_access");
       const summerHours = event.feature.getProperty("summer_hours");
       const winterHours = event.feature.getProperty("winter_hours");
-    }
+      const position = event.feature.getGeometry().get();
 
+      const content = `
+          <h2>${name}</h2><p>${location}</p>
+          <p><b></b>Wheelchair access: ${wheelAccess}</p>
+          <p><b></b>Summer hours: ${summerHours}</p>
+          <p><b></b>Winter hours: ${winterHours}</p>
+          `;
+
+      spotInfoWindow.setContent(content);
+      spotInfoWindow.setPosition(position);
+      spotInfoWindow.setOptions({
+        pixelOffset: new google.maps.Size(0, -30),
+      });
+      spotInfoWindow.open(map);
+    }
   });
-};
+
+  // go to address or postal code entered in search bar
+  const geocoder = new google.maps.Geocoder();
+
+  document.getElementById("search").addEventListener("click", () => {
+    if (document.getElementById("address").value == null) {
+      alert("Please enter a valid address or postal code");
+    } else {
+      geocodeAddress(geocoder, map);
+    }
+  });
+
+  function geocodeAddress(geocoder, resultsMap) {
+    const address = document.getElementById("address").value;
+    console.log(address);
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+        resultsMap.setCenter(results[0].geometry.location);
+        new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location,
+        });
+        // curLocMarker.setVisible(false);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+}
+
+
 
 // Append the 'script' element to 'head'
 document.head.appendChild(script);

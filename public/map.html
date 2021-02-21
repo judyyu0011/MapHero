@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="app.js"></script>
@@ -23,18 +24,30 @@
 
     <h1 id="discover-header">Discover Now</h1>
     <div id="map-container">
-        <!-- <div id="placeholder"></div> -->
+         <!-- <div id="placeholder"></div>  -->
         <div id="map"></div>
     </div>
    
         <div class="locationField">
-            <input name="autocomplete" type="text" class="form-control-loc" placeholder="Search MapHero" onfocus="Geolocation()"><br>
+            <form id="locationField">
+                <input id="address" class="form-control-loc" placeholder="Enter address or postal code" type="text" required/>
+                <div id="loc-button" class="loc-button" >
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+              <input id="search" type="submit" class="form-control-loc submit" value="Search">
+            </form>
+
         </div>
-    
+
+        <form id="select">
+            <input type="checkbox" name="fountain">
+            <input type="checkbox" name="washroom">
+        </form>
+
 
     <footer class = "social-media-footer">
-        <img class="social-media" src="images/ig-logo.png" width="50">
         <img class="social-media" src="images/fb-logo.png" width="50">
+        <img class="social-media" src="images/ig-logo.png" width="50">
     </footer>
     
 </body>

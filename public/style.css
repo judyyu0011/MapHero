@@ -1,207 +1,222 @@
 body {
-    background-color: #AD9B93;
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden;
+  background-color: #ad9b93;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
-    overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    margin-right: 50px;;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-right: 50px;
 }
 
-.nav-element {  
-    float: right;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
+.nav-element {
+  float: right;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
 }
 
 .logo {
-    position: fixed;
-    top: 2px;
-    left: 20px;
+  position: fixed;
+  top: 2px;
+  left: 20px;
 }
 
 .logo-text {
-    position: fixed;
-    left: 100px;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
+  position: fixed;
+  left: 100px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
 }
-
 
 /* MAP PAGE */
 
 #discover-header {
-    position: relative;
-    color: white;
-    left: 5%;
-    top: 50px;
-    font-weight: lighter;
+  position: relative;
+  color: white;
+  left: 5%;
+  top: 30px;
+  font-weight: lighter;
 }
 
 #map-container {
-    position: relative;
-    margin: auto;
-    top: 100px;
-    height: 50%;
-    width: 50%;
+  position: absolute;
+  top: 25%;
+  left: 30%;
+  height: 65%;
+  width: 50%;
 }
 
 #map {
-    height: 100%;
+  height: 100%;
 }
 
 #placeholder {
-    height: 100%;
-    background-color: white;
+  height: 100%;
+  background-color: white;
 }
 
-.locationField{
-    position:absolute;
-    left:60%;
-    top:25%;
-    width: 30%;
+.locationField {
+  position: absolute;
+  top: 20%;
+  left: 3%;
+  width: 5%;
 }
 
+.form-control-loc {
+  width: 300px;
+  background: rgba(21, 19, 19, 0.13);
+  outline: 1px;
+  border: 1px;
+  font-size: 18px;
+  color: #fff;
+  font-family: roboto;
+  border-radius: 10px;
+}
+.loc-button {
+  position: absolute;
+  left: 370%;
+  top: 37%;
+  color: #5e4530;
+}
+
+.loc-button:hover {
+  color: #795a40;
+  cursor: pointer;
+}
 
 /* MAIN PAGE */
 
 .column {
-    float: left;
-    width: 5%;
-    padding-left: 20px;
+  float: left;
+  width: 5%;
+  padding-left: 20px;
 }
 
 .row::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
-.pics-2{
-    padding-top: 50%;
-    left: 20%;
-    position: relative;
+.pics-2 {
+  padding-top: 50%;
+  left: 20%;
+  position: relative;
 }
-.pics-1{
-    padding-top: 300%;
-    left: 250%;
-    position: relative;
-}
-
-
-.mainPage{
-    color: white;
-    padding-top: 5rem;
-    padding-left: 50%;
+.pics-1 {
+  padding-top: 300%;
+  left: 250%;
+  position: relative;
 }
 
-.mainHeader{
-    font-size: 180%;
-}
-/*
-.main-pictures{
-    right: 100px;
-}*/
-    
-.mainPage h2{
-    padding-bottom: 1cm;
+.mainPage {
+  color: white;
+  padding-top: 5rem;
+  padding-left: 50%;
 }
 
-.button{
-    background-color: #96775B;
-    color: white;
-    padding: 15px;
-    border: none;
-    font-size: 15px;
-}
-.button:hover{
-    background-color: #795a40;
-    cursor: pointer;
+.mainHeader {
+  font-size: 180%;
 }
 
-.social-media-footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: brown;
-    color: white;
-    text-align: right;
+.mainPage h2 {
+  padding-bottom: 1cm;
 }
 
+.button {
+  background-color: #96775b;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-size: 15px;
+}
+.button:hover {
+  background-color: #795a40;
+  cursor: pointer;
+}
+
+.social-media-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: brown;
+  color: white;
+  text-align: right;
+}
 
 /* INQUIRY PAGE */
 
-.contact-title{
-    margin-top: 100px;
-    color: #fff;
-    text-align: center;
-    transition: all 2s ease-in-out;
+.contact-title {
+  margin-top: 100px;
+  color: #fff;
+  text-align: center;
+  transition: all 2s ease-in-out;
 }
-.contact-title h1{
-    font-size: 32px;
-    line-height: 10px;
-    text-transform: uppercase;
-    font-family:roboto;
+.contact-title h1 {
+  font-size: 32px;
+  line-height: 10px;
+  text-transform: uppercase;
+  font-family: roboto;
 }
-.contact-title h2{
-    font-size: 16px;
-    font-family:roboto;
-}
-
-form{
-    margin-top: 50px;
-    text-align: center;
-    transition: all 2s ease-in-out;
+.contact-title h2 {
+  font-size: 16px;
+  font-family: roboto;
 }
 
-.form-control{
-    text-align: center;
-    width: 600px;
-    background: rgba(21, 19, 19, 0.13);
-    border: 1px;
-    outline:1px;
-    border-bottom:1px solid gray;
-    color:#fff;
-    font-size: 18px;
-    font-family:roboto;
-    margin-bottom: 10px;
-}
-input{
-    height: 45px;
-}
-form .submit{
-    background: #96775B;
-    border-color: transparent;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    height: 50px;
-    margin-top: 20px;
+form {
+  margin-top: 50px;
+  text-align: center;
+  transition: all 2s ease-in-out;
 }
 
-form .submit:hover{
-    background-color: #795a40;
-    cursor: pointer;
+.form-control {
+  text-align: center;
+  width: 600px;
+  background: rgba(21, 19, 19, 0.13);
+  border: 1px;
+  outline: 1px;
+  border-bottom: 1px solid gray;
+  color: #fff;
+  font-size: 18px;
+  font-family: roboto;
+  margin-bottom: 10px;
 }
-::placeholder{
-    color: rgb(196, 196, 192);
+input {
+  height: 45px;
+}
+form .submit {
+  background: #96775b;
+  border-color: transparent;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  height: 50px;
+  margin-top: 20px;
+}
+
+form .submit:hover {
+  background-color: #795a40;
+  cursor: pointer;
+}
+::placeholder {
+  color: rgb(196, 196, 192);
 }
