@@ -50,41 +50,80 @@ window.initMap = function () {
   }
 
   // loads facility pins onto map
-  map.data.loadGeoJson("drinking-fountains.json", { idPropertyName: "mapid" });
+  map.data.loadGeoJson("resources/drinking-fountains.json", {
+    idPropertyName: "mapid",
+  });
+  map.data.loadGeoJson("resources/washrooms.json", {
+    idPropertyName: "primaryind",
+  });
+
+  map.data.setStyle((feature) => {
+    if (feature.getProperty("mapid") !== undefined)
+      return {
+        icon: {
+          url: `images/waterfountain.png`,
+          scaledSize: new google.maps.Size(20, 31),
+        },
+      };
+    else if (feature.getProperty("primaryind") !== undefined)
+      return {
+        icon: {
+          url: `images/washroom.png`,
+          scaledSize: new google.maps.Size(30, 30),
+        },
+      };
+  });
 
 
   // add infowindow for water fountains
   const spotInfoWindow = new google.maps.InfoWindow();
 
   map.data.addListener("click", (event) => {
-    var name = event.feature.getProperty("name");
-    var pos = name.lastIndexOf(':');
-    name = name.slice(pos+1);
 
-    var location;
-    if (event.feature.getProperty("location") !== undefined) {
-      location = 'Location: ' + event.feature.getProperty("location");
-    } else {
-      location = "";
+    if (event.feature.getProperty('mapid') !== undefined) {
+
+      var name = event.feature.getProperty("name");
+
+
+      var location;
+      if (event.feature.getProperty("location") !== undefined) {
+        location = "Location: " + event.feature.getProperty("location");
+      } else {
+        location = "";
+      }
+
+      var inOperation;
+      if (event.feature.getProperty("in_operation") !== undefined) {
+        inOperation =
+          "In operation: " + event.feature.getProperty("in_operation");
+      } else {
+        inOperation = "";
+      }
+
+      const position = event.feature.getGeometry().get();
+      const content = `
+        <h2>${name}</h2><p>${location}</p>
+        <p><b></b> ${inOperation}<br/>
+        `;
+
+      spotInfoWindow.setContent(content);
+      spotInfoWindow.setPosition(position);
+      spotInfoWindow.setOptions({ pixelOffset: new google.maps.Size(0, -30) });
+      spotInfoWindow.open(map);
+    } else if (event.feature.getProperty("primaryind") !== undefined) {
+      var name = event.feature.getProperty("name");
+      var location;
+      if (event.feature.getProperty("location") !== undefined) {
+        location = "Location: " + event.feature.getProperty("location");
+      } else {
+        location = "";
+      }
+
+      const wheelAccess = event.feature.getProperty("wheel_access");
+      const summerHours = event.feature.getProperty("summer_hours");
+      const winterHours = event.feature.getProperty("winter_hours");
     }
 
-    var inOperation;
-    if (event.feature.getProperty("in_operation") !== undefined) {
-      inOperation = "In operation: " + event.feature.getProperty("in_operation");
-    } else {
-      inOperation = "";
-    }
-
-    const position = event.feature.getGeometry().get();
-    const content = `
-      <h2>${name}</h2><p>${location}</p>
-      <p><b></b> ${inOperation}<br/>
-      `;
-
-    spotInfoWindow.setContent(content);
-    spotInfoWindow.setPosition(position);
-    spotInfoWindow.setOptions({ pixelOffset: new google.maps.Size(0, -30) });
-    spotInfoWindow.open(map);
   });
 };
 
