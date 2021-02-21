@@ -1,0 +1,182 @@
+body {
+    background-color: #AD9B93;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 50px;;
+}
+
+.nav-element {  
+    float: right;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.logo {
+    position: fixed;
+    top: 2px;
+    left: 20px;
+}
+
+.logo-text {
+    position: fixed;
+    left: 100px;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+
+/* MAP PAGE */
+
+#discover-header {
+    position: relative;
+    color: white;
+    left: 5%;
+    top: 50px;
+    font-weight: lighter;
+}
+
+#map-container {
+    position: relative;
+    margin: auto;
+    top: 100px;
+    height: 50%;
+    width: 50%;
+}
+
+#map {
+    height: 100%;
+}
+
+#placeholder {
+    height: 100%;
+    background-color: white;
+}
+
+
+/* MAIN PAGE */
+
+.column {
+    float: left;
+    width: 45%;
+    padding: 15px;
+  }
+
+
+.mainPage{
+    color: white;
+    /*padding-left: 50%;*/
+    padding-top: 4rem;
+}
+
+.mainHeader{
+    font-size: 200%;
+}
+.main-pictures{
+    left: 100px;
+}
+    
+.mainPage h2{
+    padding-bottom: 1cm;
+}
+
+.button{
+    background-color: #96775B;
+    color: white;
+    padding: 15px;
+    border: none;
+    font-size: 15px;
+}
+.button:hover{
+    background-color: #795a40;
+    cursor: pointer;
+}
+
+.social-media-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: brown;
+    color: white;
+    text-align: right;
+}
+
+
+/* INQUIRY PAGE */
+
+.contact-title{
+    margin-top: 100px;
+    color: #fff;
+    text-align: center;
+    transition: all 2s ease-in-out;
+}
+.contact-title h1{
+    font-size: 32px;
+    line-height: 10px;
+    text-transform: uppercase;
+    font-family:roboto;
+}
+.contact-title h2{
+    font-size: 16px;
+    font-family:roboto;
+}
+
+form{
+    margin-top: 50px;
+    text-align: center;
+    transition: all 2s ease-in-out;
+}
+
+.form-control{
+    text-align: center;
+    width: 600px;
+    background: rgba(21, 19, 19, 0.13);
+    border: 1px;
+    outline:1px;
+    border-bottom:1px solid gray;
+    color:#fff;
+    font-size: 18px;
+    font-family:roboto;
+    margin-bottom: 10px;
+}
+input{
+    height: 45px;
+}
+form .submit{
+    background: #96775B;
+    border-color: transparent;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    height: 50px;
+    margin-top: 20px;
+}
+
+form .submit:hover{
+    background-color: #795a40;
+    cursor: pointer;
+}
+::placeholder{
+    color: rgb(196, 196, 192);
+}
