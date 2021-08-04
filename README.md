@@ -13,3 +13,10 @@ MapHero is a user-friendly website developed with JavaScript that aims to help c
 
 
 Our technology stack includes various Google Maps APIs, GeoJSON, JavaScript, HTML, CSS, and Node.js.
+
+## Notable features
+- Takes in user's current location
+- Allows search by address, postal code, and location name
+- Shows different types of necessary facilities, each marker can be clicked on for an info window that shows more relevant information
+- User can filter for specific types of facilities
+- Facility data retrieved from City of Vancouver database
